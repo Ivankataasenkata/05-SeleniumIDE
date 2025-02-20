@@ -17,11 +17,14 @@ public class TC01IfUserIsInvalidTryAgainTest
     private IWebDriver driver;
     public IDictionary<string, object> vars { get; private set; }
     private IJavaScriptExecutor js;
+    private ChromeOptions chromeOptions;
 
     [SetUp]
     public void SetUp()
     {
-        driver = new ChromeDriver();
+        chromeOptions = new ChromeOptions();
+        chromeOptions.AddArgument("headless");
+        driver = new ChromeDriver(chromeOptions);
         js = (IJavaScriptExecutor)driver;
         vars = new Dictionary<string, object>();
     }
@@ -30,6 +33,7 @@ public class TC01IfUserIsInvalidTryAgainTest
     protected void TearDown()
     {
         driver.Quit();
+        driver.Dispose();
     }
 
     [Test]
@@ -76,5 +80,6 @@ public class TC01IfUserIsInvalidTryAgainTest
         }
         // 19 | close |  | 
         driver.Close();
+        driver.Dispose();
     }
 }
